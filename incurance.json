@@ -1,0 +1,46 @@
+[
+    {
+        "name": "AutoPlus",
+        "type": "Autoversicherung",
+        "benefits": [
+            "Deckungssumme 1.000.000€",
+            "PrivatService",
+            "Kostenlose Zusatzdeckung 3 Monate"
+        ],
+        "transaction_keywords": ["BMW-bank","Mercedes-Benz Bank","Volkswagen Bank","Opel Bank"],
+        "monthly_cost": "23,95€"
+   
+    },
+
+    {
+        "name": "HausratversicherungPlus",
+        "type": "Hausratversicherung",
+        "benefits": [
+            "MeineHandwerker Verzeichnis",
+            "GlaskeramikPlus",
+            "DiebstahlPlus"
+        ],
+        "transaction_keywords": [
+            "Miete",
+            "Wohn-Grund",
+            "Sahle WOhnen",
+          
+        ],
+        "monthly_cost": "17,95€"
+    },
+    {
+        "name": "JobStarter",
+        "type": "JobStarter",
+        "benefits": [
+            "MeineHandwerker Verzeichnis",
+            "GlaskeramikPlus",
+            "DiebstahlPlus"
+        ],
+        "transaction_keywords": [
+            "Miete",
+            "Wohn-Grund",
+            "Sahle WOhnen",
+        ],
+        "monthly_cost": "17,95€"
+    }
+]
