@@ -1,7 +1,10 @@
 import sqlite3
 import json
+from django import db
+
 
 def initdb():
+    db.connections.close_all()
     conn = sqlite3.connect('financial.db')
     financial = json.load(open('finance_small.json'))
 
