@@ -24,6 +24,18 @@ var hostname = process.env.HOSTNAME || config.hostname || "http://127.0.0.1:" + 
 var appDirectory = require('path').dirname(process.pkg ? process.execPath : (require.main ? require.main.filename : process.argv[0]));
 console.log(appDirectory);
 
+
+
+
+
+var FCM = require('fcm-node');
+var serverKey = config.firebase_setup.server_key; //put your server key here
+var fcm = new FCM(serverKey);
+
+
+
+
+
 app.set('trust proxy', 1);
 app.use(function (req, res, next) {
     if (!req.session) {
@@ -85,6 +97,15 @@ app.get('/rest/config_account_data', function (req, res) {
 });
 
 
+app.get('/rest/config_firebase_data', function (req, res) {
+    res.json(config.firebase_setup);
+});
+
+
+app.get('/rest/test_push', function (req, res) {
+    res.json(send_notification([1,2,3]));
+});
+
 var last_fetch = {};
 var fetch_cleaned = [];
 var fetch_portfolio = [];
@@ -143,11 +164,35 @@ function send_notification(_data) {
         }
     };
 
-    request(options, function (error, response, body) {
-        if (!error && response.statusCode == 200) {
-            console.log(body.id); // Print the shortened url.
+    
+    var fcm_data = {};
+
+    for (let index = 0; index < _data.length; index++) {
+        const element = _data[index];
+        fcm_data[String(index)] = element.itc.insurance_type ;
+    }
+    
+    
+    var message = { //this may vary according to the message type (single recipient, multicast, topic, et cetera)
+        to: config.firebase_setup.device_token,
+        collapse_key: 'your_collapse_key',
+
+        notification: {
+            title: 'You got an insurance recommendation',
+            body: 'Please open the App to see the recommendation'
+        },
+        data: fcm_data
+    };
+
+    fcm.send(message, function (err, response) {
+        if (err) {
+            console.log("Something has gone wrong!");
+        } else {
+            console.log("Successfully sent with response: ", response);
         }
     });
+
+    return fcm_data;
 }
 
 
@@ -248,7 +293,7 @@ setInterval(() => {
     last_db_transactions(config.account_data);
 }, 20000);
 
-
+last_db_transactions(config.account_data);
 
     
 

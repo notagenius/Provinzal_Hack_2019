@@ -60,7 +60,7 @@
         "creditor_keyword": "Sport",
         "type": "expenses"
     },{
-        "insurance_type": "Hausrathversicherung",
+        "insurance_type": "Hausratversicherung",
         "type_of_expand": "property",
         "creditor_keyword": "miete",
         "type": "expenses"
