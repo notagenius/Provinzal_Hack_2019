@@ -7,6 +7,7 @@ import atexit
 from createdb import initdb
 
 from resources.transaction import Transaction
+from resources.test import Test
 
 
 
