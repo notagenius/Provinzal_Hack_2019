@@ -4,6 +4,7 @@ from flask_restful import Resource, Api, reqparse
 from apscheduler.scheduler import Scheduler
 import time
 import atexit
+from createdb import initdb
 
 from resources.transaction import Transaction
 
@@ -18,6 +19,7 @@ sched.start()
 def startup():
 	print("do once")
 	#do once:
+    initdb()
 	#-get types /rest/insurance_types an TransactionGenerator
 	#https://transactiongenerator.azurewebsites.net/restexplorer.html
 
@@ -38,6 +40,7 @@ sched.add_interval_job(do_Stuff,seconds=1)
 
 
 api.add_resource(Transaction, '/transactions')
+api.add_resource(Test, '/test')
 
 if __name__ == "__main__":
     startup()
