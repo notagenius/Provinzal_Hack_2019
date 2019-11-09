@@ -18,7 +18,7 @@ transaction_fields = {
 class Transaction(Resource):
     
     def __init__(self):
-    
+        return
     
     def post(self):
         args = parser.parse_args()

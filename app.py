@@ -17,6 +17,7 @@ sched.start()
 
 database = []
 types = Types()
+transactions = Transaction()
 
 
 def get_relevant_policies(creditor, types):
@@ -49,6 +50,8 @@ def startup():
 def do_Stuff():
 	print("every second")
 	types.getTypes()
+	new_Transactions = transactions.fetch_transaction
+	r = requests.post(url = "https://transactiongenerator.azurewebsites.net/rest/submit_recomendations/", data = get_relevant_policies())
 	return
 	#do every time:
 	#-get new transactions from the TransactionsGenerator and put them to the others
@@ -56,7 +59,7 @@ def do_Stuff():
 	#-sent suggestion list to frontend
 
 
-sched.add_interval_job(do_Stuff,seconds=1)
+sched.add_interval_job(do_Stuff,seconds=5)
 
 startup()
 
