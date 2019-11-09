@@ -37,12 +37,11 @@ def do_Stuff():
 
 sched.add_interval_job(do_Stuff,seconds=1)
 
-
-
+startup()
 
 api.add_resource(Transaction, '/transactions')
 api.add_resource(Test, '/test')
 
 if __name__ == "__main__":
-    startup()
+    #startup()
     app.run()
