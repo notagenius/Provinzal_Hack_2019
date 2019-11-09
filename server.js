@@ -1,6 +1,8 @@
 var config_file = require('./config.json');
 var insurance_types = require('./insurance_types.json');
 var insurance_demo_data = require('./demo_insurance.json');
+var random_team_name_list = require('./random_teamnames.json');
+
 var request = require('request');
 var extend = require('util')._extend;
 
@@ -66,6 +68,24 @@ server.listen(port, function () {
 });
 
 
+var rnd_team_name_counter = 0;
+app.get('/rest/random_team_name', function (req, res) {
+    if (rnd_team_name_counter >= random_team_name_list.length) {
+        rnd_team_name_counter = 0;
+    }else{
+        rnd_team_name_counter++;
+    }
+    res.json({ name: random_team_name_list[rnd_team_name_counter], random_team_name_list: random_team_name_list });
+});
+
+
+
+app.get('/rest/insurance_demo_data', function (req, res) {
+    res.json(insurance_demo_data);
+});
+
+
+
 app.get('/rest/get_last_transaction', function (req, res) {
     res.json(last_fetch);
 });
@@ -121,18 +141,30 @@ app.get('/rest/config_firebase_data', function (req, res) {
 
 
 app.get('/rest/test_push', function (req, res) {
-    res.json(send_notification([1,2,3]));
+    res.json(send_notification([1, 2, 3]));
 });
+
+
+app.get('/rest/add_transaction_manual', function (req, res) {
+    var iban = req.query.iban;
+    var amount = req.query.amount;
+    var description = req.query.description;
+    var name = req.query.name;
+
+    //MAKE THE SAME PROCESS AS THE QUERY -> ADD TO QUERYS LIST ->
+        res.json(send_notification([1, 2, 3]));
+});
+
 
 
 app.get('/r/ird/:name', function (req, res) {
     var name = req.params.name;
     var url = "p";
     for (let index = 0; index < insurance_types.length; index++) {
-        if (insurance_types[index].short_code == name){
+        if (insurance_types[index].short_code == name) {
             url = insurance_types[index].url;
             break;
-        }  
+        }
     }
     res.redirect(url);
 });
@@ -146,17 +178,17 @@ function create_product_portfolio(_data) {
     var dict = {};
     for (let index = 0; index < _data.length; index++) {
         var fn = _data[index];
-        if (!fn.paymentReference){continue;}
+        if (!fn.paymentReference) { continue; }
         var name_cleaned = String(fn.paymentReference).toLocaleLowerCase();
-       // console.log(name_cleaned);
+        // console.log(name_cleaned);
         for (let itci = 0; itci < insurance_types.length; itci++) {
             var itc = insurance_types[itci];
-            if (name_cleaned.includes(String(itc.creditor_keyword).toLocaleLowerCase())){   
-                if (dict[String(itc.insurance_type)] == undefined || dict[String(itc.insurance_type)] == null){
+            if (name_cleaned.includes(String(itc.creditor_keyword).toLocaleLowerCase())) {
+                if (dict[String(itc.insurance_type)] == undefined || dict[String(itc.insurance_type)] == null) {
                     dict[String(itc.insurance_type)] = true;
-                     console.log("found an insureacnde match " + itc.insurance_type);
+                    console.log("found an insureacnde match " + itc.insurance_type);
                     tmp.push({ itc: itc, transaction: fn });
-                }        
+                }
                 break;
             }
         }
@@ -174,16 +206,16 @@ function send_transaction_to_backend(_data) {
         }
     };
 
-//    request(options, function (error, response, body) {
-//        if (!error && response.statusCode == 200) {
-//            console.log(body.id); // Print the shortened url.
-//        }
-//    });
+    //    request(options, function (error, response, body) {
+    //        if (!error && response.statusCode == 200) {
+    //            console.log(body.id); // Print the shortened url.
+    //        }
+    //    });
 }
 
 
 function send_notification(_data) {
-    if (_data.length <= 0){
+    if (_data.length <= 0) {
         console.log("no need no send a notification");
         return;
     }
@@ -195,7 +227,7 @@ function send_notification(_data) {
         }
     };
 
-    
+
     var fcm_data = {};
 
     for (let index = 0; index < _data.length; index++) {
@@ -203,7 +235,7 @@ function send_notification(_data) {
         fcm_data[String(element.itc.insurance_type)] = config.host + "/r/ird/" + element.itc.short_code;
         last_send_messages.push(element.itc);
     }
-    
+
     var message = { //this may vary according to the message type (single recipient, multicast, topic, et cetera)
         to: config.firebase_setup.device_token,
         collapse_key: 'your_collapse_key',
@@ -230,7 +262,7 @@ function send_notification(_data) {
 function last_db_transactions(_iban) {
     console.log("last_db_transactions for:" + _iban);
     var ac = config.account_data;
-    
+
     if (ac == undefined || ac == null) {
         console.error("-- ac == null --");
         return;
@@ -247,7 +279,7 @@ function last_db_transactions(_iban) {
         headers: {
             'User-Agent': 'request',
             'accept': 'application/json',
-            'Authorization':"Bearer "+ String(ac.Authorization)
+            'Authorization': "Bearer " + String(ac.Authorization)
         }
     };
 
@@ -255,7 +287,7 @@ function last_db_transactions(_iban) {
         console.log('error:', error); // Print the error if one occurred
         console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
         //  console.log('body:', body); // Print the HTML for the Google homepage.
-        
+
         if (response && response.statusCode == 200) {
             var this_time_new = [];
             var tmp = JSON.parse(body);
@@ -286,7 +318,7 @@ function last_db_transactions(_iban) {
             current_diff_transactions = this_time_new;
             send_transaction_to_backend(this_time_new); //SEND NEW TRANSACTIONS TO THE DATABASE
             fetch_portfolio = create_product_portfolio(fetch_cleaned); //GENERATE PRODUCT PORTFOLIO
-            
+
             //TODO CHECK IF last_portfolio
             var dict = {};
             var diff = []; //HOLDS NEW  INSURANCE ENTRIES DIFFER TO LAST REQUEST
@@ -297,17 +329,17 @@ function last_db_transactions(_iban) {
             }
             for (let index = 0; index < last_portfolio.length; index++) {
                 dict[String(last_portfolio[index].itc.insurance_type)] = true;
-              //  diff.push(last_portfolio[index]);
+                //  diff.push(last_portfolio[index]);
             }
             //COPY NEW ENTROIES TO LAST_PORTFOLIO
             for (let index = 0; index < fetch_portfolio.length; index++) {
                 var ttmpmp = String(fetch_portfolio[index].itc.insurance_type);
-                if (dict[ttmpmp] == undefined){
+                if (dict[ttmpmp] == undefined) {
                     diff.push(fetch_portfolio[index]);
-                }   
+                }
             }
             //last_portfolio = Object.assign({}, fetch_portfolio); //CLONE! OBJECT
-            last_portfolio= fetch_portfolio;
+            last_portfolio = fetch_portfolio;
             //SEND 
             console.log("-------- DIFF ----------");
             send_notification(diff);
@@ -327,7 +359,7 @@ setInterval(() => {
 
 last_db_transactions(config.account_data);
 
-    
+
 
 
 
