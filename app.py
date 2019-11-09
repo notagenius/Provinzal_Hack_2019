@@ -7,6 +7,7 @@ import atexit
 from createdb import initdb
 
 from resources.transaction import Transaction
+from Transactions_Types import Types
 
 
 app = Flask(__name__)
@@ -15,6 +16,7 @@ sched = Scheduler() # Scheduler object
 sched.start()
 
 database = []
+types = Types()
 
 
 def startup():
@@ -22,11 +24,13 @@ def startup():
     #do once:
     global database
     database = initdb()
+    types.setTypes()
     #-get types /rest/insurance_types an TransactionGenerator
 	#https://transactiongenerator.azurewebsites.net/restexplorer.html
 
 def do_Stuff():
 	print("every second")
+	types.getTypes()
 	return
 	#do every time:
 	#-get new transactions from the TransactionsGenerator and put them to the others
