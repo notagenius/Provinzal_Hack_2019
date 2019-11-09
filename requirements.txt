@@ -6,4 +6,5 @@ MarkupSafe==1.0
 Werkzeug==0.14.1
 flask-restful
 apscheduler==2.1.2
+django
 requests
