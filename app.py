@@ -19,6 +19,14 @@ database = []
 types = Types()
 
 
+def get_relevant_policies(creditor, types):
+    result = []
+    for insurance in types:
+        if insurance["creditor_keyword"] == creditor:
+            result.append(insurance)
+    return {x["name"] for x in result}
+
+
 def startup():
     print("do once")
     #do once:
@@ -27,6 +35,7 @@ def startup():
     types.setTypes()
     #-get types /rest/insurance_types an TransactionGenerator
 	#https://transactiongenerator.azurewebsites.net/restexplorer.html
+
 
 def do_Stuff():
 	print("every second")
