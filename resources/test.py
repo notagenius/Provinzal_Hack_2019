@@ -3,7 +3,6 @@ import sqlite3
 
 class Test(Resource):
 
-    @marshal_with(transaction_fields)
     def get(self):
 
         conn = sqlite3.connect('financial.db')
