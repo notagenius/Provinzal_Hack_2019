@@ -57,6 +57,11 @@ server.listen(port, function () {
 
 
 
+app.get('/rest/update_device_token/:token', function (req, res) {
+    var token = req.params.token;
+    config.firebase_setup.device_token = String(token);
+    res.json(config.firebase_setup);
+});
 
 
 app.get('/rest/insurance_types/', function (req, res) {
@@ -72,6 +77,10 @@ app.get('/rest/update_db_token/:token', function (req, res) {
 
 
 app.get('/rest/config', function (req, res) {
+    res.json(config);
+});
+
+app.get('/rest/config_account_data', function (req, res) {
     res.json(config.account_data);
 });
 
