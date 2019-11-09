@@ -3,11 +3,14 @@ import sqlite3
 
 class Test(Resource):
 
-    def get(self):
+    def get(self, db):
 
-        conn = sqlite3.connect('financial.db')
-        c = conn.cursor()
-        out = next(c.execute('SELECT * FROM financial ORDER BY amount'))
-        conn.close()
+        lowmount = 0
+        ix = 0
+    
+        for entr in db:
+            if entr['amount'] < lowmount:
+                lowmount = entr['amount']
+                ix += 1
 
-        return out
+        return db[ix]
