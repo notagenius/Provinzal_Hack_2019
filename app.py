@@ -27,6 +27,15 @@ def get_relevant_policies(creditor, types):
     return {x["name"] for x in result}
 
 
+def find_relevant_transactions(db):  # TODO misleading name
+    result = []
+    for entry in db:
+        # what qualifies an interesting entry?
+        pols = get_relevant_policies(entry['creditor'], db)
+        result.add((entry['iban'], pol) for pol in pols)
+    return result  # list of tuples (iban, policy_name)
+    
+
 def startup():
     print("do once")
     #do once:
