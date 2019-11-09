@@ -12,4 +12,4 @@ class Types:
         print(data)
 
     def getTypes(self):
-        print(self.transaction_types)
+        return self.transaction_types
