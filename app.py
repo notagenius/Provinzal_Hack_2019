@@ -7,7 +7,7 @@ import atexit
 from createdb import initdb
 
 from resources.transaction import Transaction
-from Transactions_Types import Types
+from Transaction_Types import Types
 
 
 app = Flask(__name__)
