@@ -5,6 +5,7 @@ from apscheduler.scheduler import Scheduler
 import time
 import atexit
 from createdb import initdb
+import requests
 
 from resources.transaction import Transaction
 from Transaction_Types import Types
@@ -23,7 +24,7 @@ transactions = Transaction()
 def get_relevant_policies(creditor, types):
     result = []
     for insurance in types:
-        if insurance["creditor_keyword"] == creditor:
+        if insurance.get("creditor_keyword", None) == creditor:
             result.append(insurance)
     return {x["name"] for x in result}
 
@@ -33,7 +34,7 @@ def find_relevant_transactions(db):  # TODO misleading name
     for entry in db:
         # what qualifies an interesting entry?
         pols = get_relevant_policies(entry['creditor'], db)
-        result.add((entry['iban'], pol) for pol in pols)
+        result += [(entry['iban'], pol) for pol in pols]
     return result  # list of tuples (iban, policy_name)
     
 
@@ -50,8 +51,8 @@ def startup():
 def do_Stuff():
 	print("every second")
 	types.getTypes()
-	new_Transactions = transactions.fetch_transaction
-	r = requests.post(url = "https://transactiongenerator.azurewebsites.net/rest/submit_recomendations/", data = get_relevant_policies())
+	new_Transactions = transactions.fetch_transaction()
+	#r = requests.post(url = "https://transactiongenerator.azurewebsites.net/rest/submit_recomendations/", data = get_relevant_policies())
 	return
 	#do every time:
 	#-get new transactions from the TransactionsGenerator and put them to the others
@@ -78,7 +79,7 @@ def get():
             bets_i = ix
         ix += 1
 
-    return str(database[bets_i])
+    return str(find_relevant_transactions(database))
 
 if __name__ == "__main__":
     #startup()
