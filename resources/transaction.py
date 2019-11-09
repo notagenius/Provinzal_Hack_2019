@@ -16,6 +16,10 @@ transaction_fields = {
 
 
 class Transaction(Resource):
+    
+    def __init__(self):
+    
+    
     def post(self):
         args = parser.parse_args()
         ta = create_transaction(args.iban, args.creditor, args.amount)
@@ -32,5 +36,7 @@ def create_transaction(iban, creditor, amount):
     pass
 
 def fetch_transaction():
-    #TODO dummy
-    return {'amount': 50.0, 'creditor': 'Creditor', 'iban': 'DE1029...'}
+    url = "https://transactiongenerator.azurewebsites.net/rest/get_transactions"
+    response = request.get(url)
+    data = response.json()
+    return data
