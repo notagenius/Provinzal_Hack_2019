@@ -1,0 +1,20 @@
+{
+    "webserver_default_port": 3000,
+    "backend_endoint_add_transaction": "0.0.0.0/rest/add_transaction",
+    "backend_endpoint_notification": "0.0.0.0/rest/notify",
+    "deutsche_bank_api_endpoint": "https://simulator-api.db.com:443/gw/dbapi/banking/transactions/v2/",
+    "account_data": {
+        "name": "Baroness Anna Meyer",
+        "iban": "DE10010000000000005437",
+        "sortBy": "bookingDate%5BDSC%5D",
+        "limit": 50,
+        "offset": 0,
+        "accept": "application/json",
+        "Authorization": "eyJraWQiOiJyc2ExIiwiYWxnIjoiUlM1MTIifQ.eyJzdWIiOiIxMDAxMDAzNjQzMDAwMDEiLCJhenAiOiJkZXZlbG9wZXJwb3J0YWwiLCJpc3MiOiJodHRwczpcL1wvc2ltdWxhdG9yLWFwaS5kYi5jb21cL2d3XC9vaWRjXC8iLCJleHAiOjE1NzMzMTg2MzUsImlhdCI6MTU3MzMxNTAzNSwianRpIjoiZTMxMDYxN2QtNjE1Ni00YmE3LTlhYTAtMjc5NGRkODI2NTY2In0.RIVhQK7OJagaIcPFNQfwlMo-rJijXgnMSiypNgTp2LOicX4ASdTzpDc1LRoUYolHoKPS2U_uijfrgHFyB3vkQRfkwLnfkM_lWlTJaUfMwfvW4tmuj7eAbxnQjJPYWQNzSVa22jrNjW8lW-Dgr4JHpwAW5DoKGFx2SZHTs0aSEPSshalolvHxFc2-Zgc2Bjelc9VeVGC5DyZ02Nox4lkoQBBQ3eUlmtuAN5A8rSaxkFk8JIAP2tWpR2j912pbLwjNoCnZ_DsDKvgwx6dSd8DF9ujA1Od97V6Jni8bJz8W3UT5r65ZJxuow4aWgxa1fN_tu7OaSDzIO_XfleMB-ysPbw"
+    },
+    "firebase_setup":{
+        "base_url":"",
+        "device_token":""
+    }
+
+}

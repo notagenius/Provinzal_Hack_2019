@@ -1,0 +1,68 @@
+[
+    {
+        "insurance_type": null,
+        "type_of_expand":"food",
+        "creditor_keyword": "Aldi Nord",
+        "type": "expenses"
+    },{
+        "insurance_type": "Berufsunfähigkeitsversicherung | JobStarter",
+        "type_of_expand": "work",
+        "creditor_keyword": "Telekom",
+        "type":"income"
+    },{
+        "insurance_type": "Auslands­kranken­versicherung",
+        "type_of_expand": "travel",
+        "creditor_keyword": "Airbnb",
+        "type": "expenses"
+    },{
+        "insurance_type": null,
+        "type_of_expand": "food",
+        "creditor_keyword": "Rewe",
+        "type": "expenses"
+    },{
+        "insurance_type": null,
+        "type_of_expand": "food",
+        "creditor_keyword": "Aldi",
+        "type": "expenses"
+    },{
+        "insurance_type": "Reise-Rücktrittskosten-Versicherung",
+        "type_of_expand": "travel",
+        "creditor_keyword": "BlaBlaCar",
+        "type": "expenses"
+    },{
+        "insurance_type": "Auslands­kranken­versicherung",
+        "type_of_expand": "travel",
+        "creditor_keyword": "UEBER",
+        "type": "expenses"
+    },{
+        "insurance_type": "Handyversicherung",
+        "type_of_expand": "phone",
+        "creditor_keyword": "E-PLUS",
+        "type": "expenses"
+    },{
+        "insurance_type": "Handyversicherung",
+        "type_of_expand": "phone",
+        "creditor_keyword": "O2 Telefonica",
+        "type": "expenses"
+    },{
+        "insurance_type": "Geräte-Versicherung",
+        "type_of_expand": "phone",
+        "creditor_keyword": "Media-Markt",
+        "type": "expenses"
+    },{
+        "insurance_type": "Geräte-Versicherung",
+        "type_of_expand": "phone",
+        "creditor_keyword": "telekom",
+        "type": "expenses"
+    },{
+        "insurance_type": "Unfallversicherung",
+        "type_of_expand": "sport",
+        "creditor_keyword": "Sport",
+        "type": "expenses"
+    },{
+        "insurance_type": "Hausrathversicherung",
+        "type_of_expand": "property",
+        "creditor_keyword": "miete",
+        "type": "expenses"
+    }
+]
