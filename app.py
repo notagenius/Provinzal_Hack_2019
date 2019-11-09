@@ -18,10 +18,10 @@ sched.start()
 
 
 def startup():
-	print("do once")
-	#do once:
+    print("do once")
+    #do once:
     initdb()
-	#-get types /rest/insurance_types an TransactionGenerator
+    #-get types /rest/insurance_types an TransactionGenerator
 	#https://transactiongenerator.azurewebsites.net/restexplorer.html
 
 def do_Stuff():
