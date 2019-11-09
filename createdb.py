@@ -6,8 +6,11 @@ def initdb():
     financial = json.load(open('finance_small.json'))
 
     c = conn.cursor()
-
-    c.execute("DROP TABLE financial")
+    
+    try:
+        c.execute("DROP TABLE financial")
+    except:
+        pass
     c.execute("CREATE TABLE financial (creditor, iban, amount, date)")
 
     for f in financial:
