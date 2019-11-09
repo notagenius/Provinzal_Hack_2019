@@ -15,10 +15,10 @@ def initdb():
 
     c = conn.cursor()
     
-    try:
-        c.execute("DROP TABLE financial")
-    except:
-        pass
+    #try:
+    #    c.execute("DROP TABLE financial")
+    #except:
+    #    pass
     c.execute("CREATE TABLE financial (creditor, iban, amount, date)")
 
     for f in financial:
