@@ -82,6 +82,8 @@ app.get('/rest/config', function (req, res) {
 app.get('/rest/config_account_data', function (req, res) {
     res.json(config.account_data);
 });
+
+
 var last_fetch = {};
 var fetch_cleaned = [];
 var fetch_portfolio = [];
