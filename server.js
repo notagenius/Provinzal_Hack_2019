@@ -32,7 +32,7 @@ var FCM = require('fcm-node');
 var serverKey = config.firebase_setup.server_key; //put your server key here
 var fcm = new FCM(serverKey);
 
-
+var last_send_messages = [];
 
 
 
@@ -78,6 +78,10 @@ app.get('/rest/update_device_token/:token', function (req, res) {
 
 app.get('/rest/insurance_types/', function (req, res) {
     res.json(insurance_types);
+});
+
+app.get('/rest/last_send_messages/', function (req, res) {
+    res.json(last_send_messages);
 });
 
 
@@ -170,6 +174,8 @@ function send_notification(_data) {
     for (let index = 0; index < _data.length; index++) {
         const element = _data[index];
         fcm_data[String(index)] = element.itc.insurance_type ;
+
+        last_send_messages.push(element.itc);
     }
     
     
