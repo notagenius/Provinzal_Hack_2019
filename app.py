@@ -17,6 +17,7 @@ sched.start()
 
 database = []
 types = Types()
+transactions = Transaction()
 
 
 def get_relevant_policies(creditor, types):
@@ -40,6 +41,7 @@ def startup():
 def do_Stuff():
 	print("every second")
 	types.getTypes()
+	new_Transactions = transactions.fetch_transaction
 	return
 	#do every time:
 	#-get new transactions from the TransactionsGenerator and put them to the others
