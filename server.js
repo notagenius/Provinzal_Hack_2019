@@ -34,7 +34,7 @@ var fcm = new FCM(serverKey);
 
 var last_send_messages = [];
 
-
+var all_got_transactions = {};
 
 app.set('trust proxy', 1);
 app.use(function (req, res, next) {
@@ -66,8 +66,15 @@ server.listen(port, function () {
 });
 
 
-
-
+app.get('/rest/get_last_transaction', function (req, res) {
+    res.json(last_fetch);
+});
+app.get('/rest/get_transactions', function (req, res) {
+    res.json(all_got_transactions);
+});
+app.get('/rest/get_current_transactions', function (req, res) {
+    res.json(current_diff_transactions);
+});
 
 app.get('/rest/update_device_token/:token', function (req, res) {
     var token = req.params.token;
@@ -245,6 +252,7 @@ function last_db_transactions(_iban) {
         if (response && response.statusCode == 200) {
             var this_time_new = [];
             var tmp = JSON.parse(body);
+            all_got_transactions = tmp;
             if (tmp.transactions != undefined && tmp.transactions != null) {
                 last_fetch = tmp.transactions;
 
@@ -259,7 +267,6 @@ function last_db_transactions(_iban) {
                             break;
                         }
                     }
-
                     if (!is_in) {
                         fetch_cleaned.push(fn);
                         console.log("added " + String(fn.id) + " " + String(fn.amount));
@@ -269,6 +276,7 @@ function last_db_transactions(_iban) {
                 }
                 console.log("--- END ADD RUN ---");
             }
+            current_diff_transactions = this_time_new;
             send_transaction_to_backend(this_time_new); //SEND NEW TRANSACTIONS TO THE DATABASE
             fetch_portfolio = create_product_portfolio(fetch_cleaned); //GENERATE PRODUCT PORTFOLIO
             
