@@ -92,7 +92,7 @@ app.get('/rest/last_send_messages/', function (req, res) {
 });
 
 
-app.pos('/rest/submit_reccomendations/', function (req, res) {
+app.pos('/rest/submit_recomendations/', function (req, res) {
     res.json(request.body);
     //TODO
 
