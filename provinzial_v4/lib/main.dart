@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 
 import 'dart:async';
+import 'package:http/http.dart' as http;
 import 'dart:io' show Platform;
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -134,6 +135,11 @@ class _PushMessagingExampleState extends State<PushMessagingExample> {
   void printToken() async {
     var token = await _firebaseMessaging.getToken();
     print("Instance ID: " + token);
+    var url =
+        'http://transactiongenerator.azurewebsites.net/rest/update_device_token/${token}';
+    var response = await http.get(url);
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}');
   }
 
   void configureFirebaseMessage() {
