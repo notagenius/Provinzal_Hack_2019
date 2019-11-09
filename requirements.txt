@@ -5,5 +5,4 @@ Jinja2==2.10
 MarkupSafe==1.0
 Werkzeug==0.14.1
 flask-restful
-flask-sqlalchemy
 apscheduler==2.1.2
