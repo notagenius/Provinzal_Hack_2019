@@ -1,7 +1,14 @@
 import sqlite3
 import json
+import os
 
 def initdb():
+    
+    try:
+        os.remove('financial.db')
+    except:
+        pass
+
     conn = sqlite3.connect('financial.db')
     financial = json.load(open('finance_small.json'))
 
