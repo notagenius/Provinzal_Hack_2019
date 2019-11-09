@@ -92,6 +92,13 @@ app.get('/rest/last_send_messages/', function (req, res) {
 });
 
 
+app.pos('/rest/submit_reccomendations/', function (req, res) {
+    res.json(request.body);
+    //TODO
+
+    //TODO nur die neuen
+});
+
 app.get('/rest/update_db_token/:token', function (req, res) {
     var token = req.params.token;
     config.account_data.Authorization = String(token);
