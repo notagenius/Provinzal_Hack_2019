@@ -1,0 +1,63 @@
+[
+    {
+        "amount": 369.0,
+        "counterPartyIban": "DE10010000000000031163",
+        "currencyCode": "EUR",
+        "creditorId": "DE17ZZZ00046235285",
+        "bookingDate": "2019-11-09",
+        "mandateReference": "MA005734466",
+        "counterPartyName": "Apple Support",
+        "externalBankTransactionDomainCode": "DUDU",
+        "externalBankTransactionFamilyCode": "CCRD",
+        "externalBankTransactionSubFamilyCode": "CWDL",
+        "transactionCode": 123,
+        "paymentReference": "iPhone Reparatur und Austausch des Displays",
+        "valueDate": "2019-11-09"
+    },
+    {
+        "amount": 799.0,
+        "counterPartyIban": "DE10010000000000031063",
+        "currencyCode": "EUR",
+        "creditorId": "DE17ZZZ00046235286",
+        "bookingDate": "2019-11-09",
+        "mandateReference": "MA005734466",
+        "counterPartyName": "Apple",
+        "externalBankTransactionDomainCode": "DUDU",
+        "externalBankTransactionFamilyCode": "CCRD",
+        "externalBankTransactionSubFamilyCode": "CWDL",
+        "transactionCode": 123,
+        "paymentReference": "POS MIT PIN. iPhone 11 Einkauf",
+        "valueDate": "2019-11-09"
+    },
+    {
+        "amount": 52050.0,
+        "counterPartyIban": "DE10010000000000031063",
+        "currencyCode": "EUR",
+        "creditorId": "DE17ZZZ00046235286",
+        "bookingDate": "2019-11-09",
+        "mandateReference": "MA005734466",
+        "counterPartyName": "BMW DE",
+        "externalBankTransactionDomainCode": "DUDU",
+        "externalBankTransactionFamilyCode": "CCRD",
+        "externalBankTransactionSubFamilyCode": "CWDL",
+        "transactionCode": 123,
+        "paymentReference": "POS MIT PIN. BMW Einkauf",
+        "valueDate": "2019-11-09"
+    },
+    {
+        "amount": 399000.0,
+        "counterPartyIban": "DE10010000000000031063",
+        "currencyCode": "EUR",
+        "creditorId": "DE17ZZZ00046235286",
+        "bookingDate": "2019-11-09",
+        "mandateReference": "MA005734466",
+        "counterPartyName": "immobilienscout24",
+        "externalBankTransactionDomainCode": "DUDU",
+        "externalBankTransactionFamilyCode": "CCRD",
+        "externalBankTransactionSubFamilyCode": "CWDL",
+        "transactionCode": 123,
+        "paymentReference": "Doppelhaushälfte Kaufpreises",
+        "valueDate": "2019-11-09"
+    }
+
+]
