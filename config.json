@@ -1,4 +1,5 @@
 {
+    "host":"https://transactiongenerator.azurewebsites.net",
     "webserver_default_port": 3000,
     "backend_endoint_add_transaction": "0.0.0.0/rest/add_transaction",
     "backend_endpoint_notification": "0.0.0.0/rest/notify",

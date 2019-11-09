@@ -110,6 +110,19 @@ app.get('/rest/test_push', function (req, res) {
     res.json(send_notification([1,2,3]));
 });
 
+
+app.get('/r/ird/:name', function (req, res) {
+    var name = req.params.name;
+    var url = "p";
+    for (let index = 0; index < insurance_types.length; index++) {
+        if (insurance_types[index].short_code == name){
+            url = insurance_types[index].url;
+            break;
+        }  
+    }
+    res.redirect(url);
+});
+
 var last_fetch = {};
 var fetch_cleaned = [];
 var fetch_portfolio = [];
@@ -147,11 +160,11 @@ function send_transaction_to_backend(_data) {
         }
     };
 
-    request(options, function (error, response, body) {
-        if (!error && response.statusCode == 200) {
-            console.log(body.id); // Print the shortened url.
-        }
-    });
+//    request(options, function (error, response, body) {
+//        if (!error && response.statusCode == 200) {
+//            console.log(body.id); // Print the shortened url.
+//        }
+//    });
 }
 
 
@@ -173,11 +186,9 @@ function send_notification(_data) {
 
     for (let index = 0; index < _data.length; index++) {
         const element = _data[index];
-        fcm_data[String(index)] = element.itc.insurance_type ;
-
+        fcm_data[String(element.itc.insurance_type)] = config.host + "/r/ird/" + element.itc.short_code;
         last_send_messages.push(element.itc);
     }
-    
     
     var message = { //this may vary according to the message type (single recipient, multicast, topic, et cetera)
         to: config.firebase_setup.device_token,

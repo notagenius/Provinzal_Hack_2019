@@ -3,66 +3,92 @@
         "insurance_type": null,
         "type_of_expand":"food",
         "creditor_keyword": "Aldi Nord",
-        "type": "expenses"
+        "type": "expenses",
+        "url": "https://www.provinzial.com/content/",
+        "short_code":"p"
     },{
-        "insurance_type": "Berufsunfähigkeitsversicherung | JobStarter",
+        "insurance_type": "Berufsunfähigkeitsversicherung",
         "type_of_expand": "work",
         "creditor_keyword": "Telekom",
-        "type":"income"
+        "type":"income",
+        "url":"https://www.provinzial.com/content/versicherungen/berufsunfaehigkeit/berufsunfaehigkeit/",
+        "short_code": "bu"
     },{
         "insurance_type": "Auslands­kranken­versicherung",
         "type_of_expand": "travel",
         "creditor_keyword": "Airbnb",
-        "type": "expenses"
+        "type": "expenses",
+        "url":"https://www.provinzial.com/content/versicherungen/reiseversicherungen/auslandsreisekranken/",
+        "short_code": "ak"
     },{
         "insurance_type": null,
         "type_of_expand": "food",
         "creditor_keyword": "Rewe",
-        "type": "expenses"
+        "type": "expenses",
+        "url":"https://www.provinzial.com/content/",
+        "short_code": "p"
     },{
         "insurance_type": null,
         "type_of_expand": "food",
         "creditor_keyword": "Aldi",
-        "type": "expenses"
+        "type": "expenses",
+        "url":"https://www.provinzial.com/content/",
+        "short_code": "p"
     },{
         "insurance_type": "Reise-Rücktrittskosten-Versicherung",
         "type_of_expand": "travel",
         "creditor_keyword": "BlaBlaCar",
-        "type": "expenses"
+        "type": "expenses",
+        "url":"https://www.provinzial.com/content/versicherungen/reiseversicherungen/reiseruecktritt/",
+        "short_code": "rr"
     },{
         "insurance_type": "Auslands­kranken­versicherung",
         "type_of_expand": "travel",
         "creditor_keyword": "UEBER",
-        "type": "expenses"
+        "type": "expenses",
+        "url":"https://www.provinzial.com/content/versicherungen/reiseversicherungen/auslandsreisekranken/",
+        "short_code": "ak"
     },{
         "insurance_type": "Handyversicherung",
         "type_of_expand": "phone",
         "creditor_keyword": "E-PLUS",
-        "type": "expenses"
+        "type": "expenses",
+        "url":"https://www.sichermeins.de",
+        "short_code": "hv"
     },{
         "insurance_type": "Handyversicherung",
         "type_of_expand": "phone",
         "creditor_keyword": "O2 Telefonica",
-        "type": "expenses"
+        "type": "expenses",
+        "url":"https://www.sichermeins.de",
+        "short_code": "hv"
     },{
         "insurance_type": "Geräte-Versicherung",
         "type_of_expand": "phone",
         "creditor_keyword": "Media-Markt",
-        "type": "expenses"
+        "type": "expenses",
+        "url":"https://www.sichermeins.de",
+        "short_code": "hv"
     },{
         "insurance_type": "Geräte-Versicherung",
         "type_of_expand": "phone",
         "creditor_keyword": "telekom",
-        "type": "expenses"
+        "type": "expenses",
+        "url":"https://www.sichermeins.de",
+        "short_code": "hv"
     },{
         "insurance_type": "Unfallversicherung",
         "type_of_expand": "sport",
         "creditor_keyword": "Sport",
-        "type": "expenses"
+        "type": "expenses",
+        "url":"https://www.provinzial.com/content/versicherungen/unfall/privat/",
+        "short_code": "uv"
     },{
         "insurance_type": "Hausratversicherung",
         "type_of_expand": "property",
         "creditor_keyword": "miete",
-        "type": "expenses"
+        "type": "expenses",
+        "url":"https://www.provinzial.com/content/versicherungen/wohnen/hausrat/",
+        "short_code": "ha"
     }
 ]
