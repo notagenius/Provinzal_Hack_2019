@@ -78,7 +78,7 @@ app.get('/rest/random_team_name', function (req, res) {
 
     var description = "Vielen Dank für Ihren Einkauf bei IKEA";
     var iban = config.account_data.iban;
-    res.json({ iban:iban,name: random_team_name_list[rnd_team_name_counter], random_team_name_list: random_team_name_list, description: description});
+    res.json({ iban:iban,name: "IKEA Duesseldorf", random_team_name_list: random_team_name_list, description: description});
 });
 
 
