@@ -21,26 +21,29 @@ types = Types()
 transactions = Transaction()
 
 
+def is_creditor_match(creditor, creditor_keyword):
+    creditor = creditor.lower()
+    creditor_keyword = creditor_keyword.lower()
+    return creditor_keyword in creditor
+
+
 def get_relevant_policies(creditor, types):
     result = []
     for insurance in types:
-        if insurance.get("creditor_keyword", None) == creditor:
+        if is_creditor_match(creditor, insurance["creditor_keyword"]):
             result.append(insurance)
-    return {x["name"] for x in result}
+    return {x["insurance_type"] for x in result}
 
 
 def find_relevant_transactions(db):  # TODO misleading name
     result = []
     for entry in db:
-        # what qualifies an interesting entry?
-        pols = get_relevant_policies(entry['creditor'], db)
+        pols = get_relevant_policies(entry['creditor'], types.getTypes())
         result += [(entry['iban'], pol) for pol in pols]
     return result  # list of tuples (iban, policy_name)
-    
+
 
 def startup():
-    print("do once")
-    #do once:
     global database
     database = initdb()
     types.setTypes()
@@ -49,11 +52,10 @@ def startup():
 
 
 def do_Stuff():
-	print("every second")
 	types.getTypes()
 	new_Transactions = transactions.fetch_transaction()
 	suggestions = find_relevant_transactions(database)
-	suggestions = {"insurance_type": "Hausratversicherung"}
+	#suggestions = {"insurance_type": "Hausratversicherung"}
 	print(suggestions)
 	r = requests.post(url = "https://transactiongenerator.azurewebsites.net/rest/submit_recomendations/", data = suggestions)
 	return
@@ -71,19 +73,8 @@ api.add_resource(Transaction, '/transactions')
 
 @app.route('/test')
 def get():
-
-    lowmount = 0
-    bets_i = 0
-    ix = 0
-
-    for entr in database:
-        if entr['amount'] < lowmount:
-            lowmount = entr['amount']
-            bets_i = ix
-        ix += 1
-
     return str(find_relevant_transactions(database))
 
 if __name__ == "__main__":
-    #startup()
+    startup()
     app.run()

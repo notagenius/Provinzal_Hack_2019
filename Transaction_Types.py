@@ -9,7 +9,7 @@ class Types:
         response = requests.get(url)
         data = response.json()
         self.transaction_types = data
-        print(data)
+        #print(data)
 
     def getTypes(self):
         return self.transaction_types
