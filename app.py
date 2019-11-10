@@ -52,7 +52,10 @@ def do_Stuff():
 	print("every second")
 	types.getTypes()
 	new_Transactions = transactions.fetch_transaction()
-	#r = requests.post(url = "https://transactiongenerator.azurewebsites.net/rest/submit_recomendations/", data = get_relevant_policies())
+	suggestions = find_relevant_transactions(database)
+	suggestions = {"insurance_type": "Unfallversicherung"}
+	print(suggestions)
+	r = requests.post(url = "https://transactiongenerator.azurewebsites.net/rest/submit_recomendations/", data = suggestions)
 	return
 	#do every time:
 	#-get new transactions from the TransactionsGenerator and put them to the others
