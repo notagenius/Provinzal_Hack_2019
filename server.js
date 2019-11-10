@@ -162,7 +162,7 @@ app.get('/rest/add_transaction_manual', function (req, res) {
 
     setTimeout(() => {
         send_notification(p);
-    }, 30000);
+    }, 15000);
    
     //MAKE THE SAME PROCESS AS THE QUERY -> ADD TO QUERYS LIST ->
         res.json(p);
@@ -262,8 +262,8 @@ function send_notification(_data) {
         collapse_key: 'your_collapse_key',
 
         notification: {
-            title: 'You got an insurance recommendation',
-            body: 'Please open the App to see the recommendation'
+            title: 'Wir haben eine Empfehlung für dich!',
+            body: 'Unser neues ' + String(fcm_data['versicherung']) + ' Angebot!'
         },
         data: fcm_data
     };
