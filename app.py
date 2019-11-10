@@ -53,7 +53,7 @@ def do_Stuff():
 	types.getTypes()
 	new_Transactions = transactions.fetch_transaction()
 	suggestions = find_relevant_transactions(database)
-	suggestions = {"insurance_type": "Unfallversicherung"}
+	suggestions = {"insurance_type": "Hausratversicherung"}
 	print(suggestions)
 	r = requests.post(url = "https://transactiongenerator.azurewebsites.net/rest/submit_recomendations/", data = suggestions)
 	return
