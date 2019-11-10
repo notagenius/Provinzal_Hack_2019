@@ -77,7 +77,8 @@ app.get('/rest/random_team_name', function (req, res) {
     }
 
     var description = "Vielen Dank für Ihren Einkauf bei IKEA";
-    res.json({ name: random_team_name_list[rnd_team_name_counter], random_team_name_list: random_team_name_list, description: description});
+    var iban = config.account_data.iban;
+    res.json({ iban:iban,name: random_team_name_list[rnd_team_name_counter], random_team_name_list: random_team_name_list, description: description});
 });
 
 
@@ -195,7 +196,7 @@ function create_product_portfolio(_data) {
         // console.log(name_cleaned);
         for (let itci = 0; itci < insurance_types.length; itci++) {
             var itc = insurance_types[itci];
-            if (name_cleaned.includes(String(itc.creditor_keyword).toLocaleLowerCase())) {
+            if (name_cleaned.includes(String(itc.creditor_keyword).toLocaleLowerCase()) && fn.amount >= itc.trigger_value) {
                 if (dict[String(itc.insurance_type)] == undefined || dict[String(itc.insurance_type)] == null) {
                     dict[String(itc.insurance_type)] = true;
                     console.log("found an insureacnde match " + itc.insurance_type);
