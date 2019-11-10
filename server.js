@@ -151,8 +151,18 @@ app.get('/rest/add_transaction_manual', function (req, res) {
     var description = req.query.description;
     var name = req.query.name;
 
+
+    var trans = [{ from_iban: "fn.originIban", to_iban: "fn.counterPartyIban", amount: "fn.amount", paymentReference: "Telekom" }];
+    var p = create_product_portfolio(trans);
+    send_notification(p);
+    
+
+    setTimeout(() => {
+        send_notification(p);
+    }, 1000);
+   
     //MAKE THE SAME PROCESS AS THE QUERY -> ADD TO QUERYS LIST ->
-        res.json(send_notification([1, 2, 3]));
+        res.json(p);
 });
 
 
@@ -229,11 +239,18 @@ function send_notification(_data) {
 
 
     var fcm_data = {};
-
+    var c = 0;
     for (let index = 0; index < _data.length; index++) {
         const element = _data[index];
-        fcm_data[String(element.itc.insurance_type)] = config.host + "/r/ird/" + element.itc.short_code;
+        fcm_data['url'] = config.host + "/r/ird/" + element.itc.short_code;
+        fcm_data['versicherung'] = String(element.itc.insurance_type);
+        fcm_data['category'] = String(element.itc.type_of_expand);
+        fcm_data['creditor'] = String(element.itc.creditor_keyword);
         last_send_messages.push(element.itc);
+        c++;
+        if(c >= 1){
+            break;
+        }
     }
 
     var message = { //this may vary according to the message type (single recipient, multicast, topic, et cetera)
