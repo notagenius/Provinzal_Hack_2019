@@ -90,5 +90,20 @@
         "type": "expenses",
         "url":"https://www.provinzial.com/content/versicherungen/wohnen/hausrat/",
         "short_code": "ha"
+    },
+    {
+        "insurance_type": "Hausratversicherung",
+        "type_of_expand": "property",
+        "creditor_keyword": "ikea",
+        "type": "expenses",
+        "url": "https://www.provinzial.com/content/versicherungen/wohnen/hausrat/",
+        "short_code": "ha"
+    },{
+        "insurance_type": "Hausratversicherung",
+        "type_of_expand": "property",
+        "creditor_keyword": "schaffrath",
+        "type": "expenses",
+        "url": "https://www.provinzial.com/content/versicherungen/wohnen/hausrat/",
+        "short_code": "ha"
     }
 ]

@@ -75,7 +75,9 @@ app.get('/rest/random_team_name', function (req, res) {
     }else{
         rnd_team_name_counter++;
     }
-    res.json({ name: random_team_name_list[rnd_team_name_counter], random_team_name_list: random_team_name_list });
+
+    var description = "Vielen Dank für Ihren Einkauf bei IKEA";
+    res.json({ name: random_team_name_list[rnd_team_name_counter], random_team_name_list: random_team_name_list, description: description});
 });
 
 
@@ -152,14 +154,14 @@ app.get('/rest/add_transaction_manual', function (req, res) {
     var name = req.query.name;
 
 
-    var trans = [{ from_iban: "fn.originIban", to_iban: "fn.counterPartyIban", amount: "fn.amount", paymentReference: "Telekom" }];
+    var trans = [{ from_iban: config.account_data.iban, to_iban: iban, amount: amount, paymentReference: description }];
     var p = create_product_portfolio(trans);
     send_notification(p);
     
 
     setTimeout(() => {
         send_notification(p);
-    }, 1000);
+    }, 30000);
    
     //MAKE THE SAME PROCESS AS THE QUERY -> ADD TO QUERYS LIST ->
         res.json(p);
@@ -246,6 +248,7 @@ function send_notification(_data) {
         fcm_data['versicherung'] = String(element.itc.insurance_type);
         fcm_data['category'] = String(element.itc.type_of_expand);
         fcm_data['creditor'] = String(element.itc.creditor_keyword);
+        fcm_data['company'] = String("Provinzial Rheinland");
         last_send_messages.push(element.itc);
         c++;
         if(c >= 1){
