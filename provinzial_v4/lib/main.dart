@@ -1,13 +1,11 @@
-// Copyright 2019 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
 import 'dart:async';
 import 'package:http/http.dart' as http;
+import 'dart:io';
 import 'dart:io' show Platform;
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provinzial_v4/recommendation_details.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 final Map<String, Item> _items = <String, Item>{};
 Item _itemForMessage(Map<String, dynamic> message) {
@@ -48,6 +46,7 @@ class Item {
 class DetailPage extends StatefulWidget {
   DetailPage(this.itemId);
   final String itemId;
+  //
   @override
   _DetailPageState createState() => _DetailPageState();
 }
@@ -55,6 +54,11 @@ class DetailPage extends StatefulWidget {
 class _DetailPageState extends State<DetailPage> {
   Item _item;
   StreamSubscription<Item> _subscription;
+
+  final Color iconColor = Color(0xffFFC107);
+  final Color color1 = Color(0xff006646); // #006646
+  final Color color2 = Color(0xff006646);
+  final Color color3 = Color(0xff69A82F);
 
   @override
   void initState() {
@@ -71,14 +75,181 @@ class _DetailPageState extends State<DetailPage> {
     });
   }
 
+  void _launchInsuranceURL() async {
+    const url = 'https://transactiongenerator.azurewebsites.net/r/ird/ha';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Item ${_item.itemId}"),
-      ),
       body: Material(
-        child: Center(child: Text("Item status: ${_item.status}")),
+        child: Container(
+          height: double.infinity,
+          child: Stack(children: <Widget>[
+            Positioned(
+              top: 350,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              child: Container(
+                height: 200,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      colors: [color2, color3],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter),
+                ),
+              ),
+            ),
+            Positioned(
+                top: 350,
+                left: 0,
+                right: 150,
+                bottom: 80,
+                child: Container(
+                  height: 200,
+                  decoration: BoxDecoration(
+                    color: color1,
+                    borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(50.0),
+                    ),
+                  ),
+                )),
+            Positioned(
+              top: 350,
+              left: 0,
+              right: 0,
+              child: Container(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    SizedBox(height: 40.0),
+                    Text(
+                      "Hausratversicherung".toUpperCase(),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 20.0),
+                    ),
+                    SizedBox(height: 20.0),
+                    Text(
+                      "Basierend auf deinem Einkauf bei IKEA \nschlagen wir Dir eine Hausratversicherung vor.",
+                      style: TextStyle(color: Colors.white, fontSize: 14.0),
+                    ),
+                    SizedBox(height: 50.0),
+                    SizedBox(
+                      height: 30.0,
+                      width: double.infinity,
+                      child: Row(
+                        children: <Widget>[
+                          Text(
+                            "59.32",
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 18.0),
+                          ),
+                          SizedBox(width: 5.0),
+                          Icon(Icons.euro_symbol, color: Colors.white),
+                          Spacer(),
+                          VerticalDivider(color: Colors.white),
+                          Spacer(),
+                          Text(
+                            "Provinzial Rheinland",
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 18.0),
+                          ),
+                          Spacer(),
+                          VerticalDivider(color: Colors.white),
+                          Spacer(),
+                          Icon(Icons.home, color: Colors.white),
+                          SizedBox(width: 5.0),
+                          Text(
+                            "Eigentum",
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 18.0),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 50.0),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        RaisedButton(
+                          child: Text('JETZT BUCHEN'),
+                          textColor: color1,
+                          color: iconColor,
+                          onPressed: _launchInsuranceURL,
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              height: 380,
+              alignment: Alignment.topCenter,
+              decoration: BoxDecoration(boxShadow: [
+                BoxShadow(color: Colors.black38, blurRadius: 30.0)
+              ]),
+              child: SizedBox(
+                height: 350,
+                child: Image.asset(
+                  'assets/images/kinderterror.jpg',
+                  fit: BoxFit.cover,
+                ),
+                // PNetworkImage(
+                //   recommendationUnfall,
+                //   fit: BoxFit.cover,
+                // ),
+              ),
+            ),
+            Positioned(
+              top: 325,
+              left: 20,
+              child: CircleAvatar(
+                backgroundColor: Colors.white,
+                radius: 25,
+                child: IconButton(
+                  color: color1,
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.home,
+                  ),
+                ),
+              ),
+            ),
+            Positioned(
+              top: 325,
+              right: 20,
+              child: RaisedButton(
+                child: Text("Mehr lesen".toUpperCase()),
+                color: Colors.white,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0)),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => RecommendationDetailsPage()));
+                },
+              ),
+            ),
+            Container(
+                height: 70.0,
+                child: AppBar(
+                  backgroundColor: Colors.transparent,
+                  elevation: 0,
+                )),
+          ]),
+        ),
       ),
     );
   }
@@ -91,38 +262,18 @@ class PushMessagingExample extends StatefulWidget {
 
 class _PushMessagingExampleState extends State<PushMessagingExample> {
   String _homeScreenText = "Waiting for token...";
+  Map<String, String> _message = {
+    'url': 'https://transactiongenerator.azurewebsites.net/r/ird/ha',
+    'category': 'Kategorie...',
+    'creditor': 'Grund',
+    'company': 'Firma',
+    'versicherung': 'Hausrat?'
+  };
   bool _topicButtonsDisabled = false;
 
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
   final TextEditingController _topicController =
       TextEditingController(text: 'topic');
-
-  final FirebaseOptions options = const FirebaseOptions(
-    googleAppID: '1:297855924061:ios:c6de2b69b03a5be8',
-    gcmSenderID: '297855924061',
-    apiKey: 'AIzaSyBq6mcufFXfyqr79uELCiqM_O_1-G72PVU',
-  );
-
-  final String name = 'foo';
-  Future<void> _configure() async {
-    final FirebaseApp app = await FirebaseApp.configure(
-      name: name,
-      options: options,
-    );
-    assert(app != null);
-    print('Configured $app');
-  }
-
-  Future<void> _allApps() async {
-    final List<FirebaseApp> apps = await FirebaseApp.allApps();
-    print('Currently configured apps: $apps');
-  }
-
-  Future<void> _options() async {
-    final FirebaseApp app = await FirebaseApp.appNamed(name);
-    final FirebaseOptions options = await app?.options;
-    print('Current options for app $name: $options');
-  }
 
   @override
   void initState() {
@@ -136,7 +287,7 @@ class _PushMessagingExampleState extends State<PushMessagingExample> {
     var token = await _firebaseMessaging.getToken();
     print("Instance ID: " + token);
     var url =
-        'http://transactiongenerator.azurewebsites.net/rest/update_device_token/${token}';
+        'http://transactiongenerator.azurewebsites.net/rest/update_device_token/$token';
     var response = await http.get(url);
     print('Response status: ${response.statusCode}');
     print('Response body: ${response.body}');
@@ -146,6 +297,7 @@ class _PushMessagingExampleState extends State<PushMessagingExample> {
     _firebaseMessaging.configure(
       onMessage: (Map<String, dynamic> message) async {
         print("onMessage: $message");
+
         _showItemDialog(message);
       },
       onLaunch: (Map<String, dynamic> message) async {
@@ -173,7 +325,7 @@ class _PushMessagingExampleState extends State<PushMessagingExample> {
   }
 
   void firebaseCloudMessagingListeners() {
-    if (Platform.isIOS) iOS_Permission();
+    if (Platform.isIOS) iosPermission();
 
     _firebaseMessaging.getToken().then((token) {
       print(token);
@@ -192,7 +344,7 @@ class _PushMessagingExampleState extends State<PushMessagingExample> {
     );
   }
 
-  void iOS_Permission() {
+  void iosPermission() {
     _firebaseMessaging.requestNotificationPermissions(
         IosNotificationSettings(sound: true, badge: true, alert: true));
     _firebaseMessaging.onIosSettingsRegistered
@@ -203,23 +355,25 @@ class _PushMessagingExampleState extends State<PushMessagingExample> {
 
   Widget _buildDialog(BuildContext context, Item item) {
     return AlertDialog(
-      content: Text("Item ${item.itemId} has been updated"),
+      contentPadding: EdgeInsets.all(16.0),
+      titlePadding: EdgeInsets.all(16.0),
+      content: Text("Es gibt eine Empfehlung für Dich!"),
       actions: <Widget>[
         FlatButton(
-          child: const Text('CLOSE'),
+          child: const Text('Weg damit!'),
+          textColor: Color(0xff006646),
           onPressed: () {
             Navigator.pop(context, false);
           },
         ),
-        FlatButton(
-          child: const Text('SHOW'),
+        RaisedButton(
+          child: const Text('Zeig her!'),
+          color: Color(0xff006646),
+          textColor: Colors.white,
           onPressed: () {
             Navigator.pop(context, true);
           },
         ),
-        RaisedButton(onPressed: _configure, child: const Text('initialize')),
-        RaisedButton(onPressed: _allApps, child: const Text('allApps')),
-        RaisedButton(onPressed: _options, child: const Text('options')),
       ],
     );
   }
@@ -244,63 +398,47 @@ class _PushMessagingExampleState extends State<PushMessagingExample> {
     }
   }
 
+  void _launchURL() async {
+    const url = 'https://www.provinzial.com/hackathon';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Push Messaging Demo'),
+      backgroundColor: Colors.white,
+      // For testing -- simulate a message being received
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => _showItemDialog(<String, dynamic>{
+          "data": <String, String>{
+            "id": "2",
+            "status": "out of stock",
+          },
+        }),
+        tooltip: 'Simulate Message',
+        child: const Icon(Icons.message),
+      ),
+      body: Center(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Image.asset(
+              'assets/images/logo.jpg',
+              fit: BoxFit.cover,
+            ),
+            new RaisedButton(
+              onPressed: _launchURL,
+              child: new Text('Gehe zur Website'),
+            ),
+          ],
         ),
-        // For testing -- simulate a message being received
-        floatingActionButton: FloatingActionButton(
-          onPressed: () => _showItemDialog(<String, dynamic>{
-            "data": <String, String>{
-              "id": "2",
-              "status": "out of stock",
-            },
-          }),
-          tooltip: 'Simulate Message',
-          child: const Icon(Icons.message),
-        ),
-        body: Material(
-          child: Column(
-            children: <Widget>[
-              Center(
-                child: Text(_homeScreenText),
-              ),
-              Row(children: <Widget>[
-                Expanded(
-                  child: TextField(
-                      controller: _topicController,
-                      onChanged: (String v) {
-                        setState(() {
-                          _topicButtonsDisabled = v.isEmpty;
-                        });
-                      }),
-                ),
-                FlatButton(
-                  child: const Text("subscribe"),
-                  onPressed: _topicButtonsDisabled
-                      ? null
-                      : () {
-                          _firebaseMessaging
-                              .subscribeToTopic(_topicController.text);
-                          _clearTopicText();
-                        },
-                ),
-                FlatButton(
-                  child: const Text("unsubscribe"),
-                  onPressed: _topicButtonsDisabled
-                      ? null
-                      : () {
-                          _firebaseMessaging
-                              .unsubscribeFromTopic(_topicController.text);
-                          _clearTopicText();
-                        },
-                ),
-              ])
-            ],
-          ),
-        ));
+      ),
+    );
   }
 
   void _clearTopicText() {
@@ -314,6 +452,13 @@ class _PushMessagingExampleState extends State<PushMessagingExample> {
 void main() {
   runApp(
     MaterialApp(
+      title: 'Provinzial Recommender',
+      theme: ThemeData(
+        buttonTheme: ButtonThemeData(
+          buttonColor: Color(0xff006646),
+          textTheme: ButtonTextTheme.primary,
+        ),
+      ),
       home: PushMessagingExample(),
     ),
   );
